@@ -35,27 +35,25 @@ while running is True:
 
                 print('Имя:')
                 first_name = input()
-                print('\n')
 
-                print('Фамилия:')
+                print('\nФамилия:')
                 last_name = input()
-                print('\n')
 
-                print('Отчество:\n')
+                print('\nОтчество:\n')
                 patronymic = input()
-                print('\n')
 
-                print('Организация:\n')
+
+                print('\nОрганизация:\n')
                 organisation = input()
-                print('\n')
 
-                print('Рабочий телефон:\n')
+
+                print('\nРабочий телефон:\n')
                 work_number = input()
-                print('\n')
 
-                print('Личный телефон:\n')
+
+                print('\nЛичный телефон:\n')
                 personal_number = input()
-                print('\n')
+
 
                 crud.add_data(first_name, last_name, patronymic, organisation, work_number, personal_number)
                 print('\nДанные добавлены успешно\n')
@@ -121,27 +119,22 @@ while running is True:
 
                     print('Имя:')
                     first_name = input()
-                    print('\n')
 
-                    print('Фамилия:')
+                    print('\nФамилия:')
                     last_name = input()
-                    print('\n')
 
-                    print('Отчество:\n')
+                    print('\nОтчество:\n')
                     patronymic = input()
-                    print('\n')
 
-                    print('Организация:\n')
+                    print('\nОрганизация:\n')
                     organisation = input()
-                    print('\n')
 
-                    print('Рабочий телефон:\n')
+                    print('\nРабочий телефон:\n')
                     work_number = input()
-                    print('\n')
 
-                    print('Личный телефон:\n')
+                    print('\nЛичный телефон:\n')
                     personal_number = input()
-                    print('\n')
+
 
                     crud.update_data(first_name, last_name, patronymic, organisation, work_number, personal_number, former_number)
                     print('\nДанные добавлены успешно\n')
