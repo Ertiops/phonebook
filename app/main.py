@@ -1,118 +1,222 @@
 import crud
 
-avaliable_actions = ['просмотреть','добавить', 'найти', 'редактировать', 'удалить']
+avaliable_actions = ['просмотреть','добавить', 'найти', 'редактировать']
 
 
 running = True
 
 while running is True:
 
-    action = None
+    main_action = True
 
-    while action not in avaliable_actions:
-        if action is not None:
-            print('Такого действия нет')
+    while main_action is True:
 
-        print('введите действие:\n\n',
-        'просмотреть\n',
-        'добавить\n',
-        'найти\n',
-        'редактировать\n',
-        'удалить\n')
+        action = None
 
-        action = str(input())
+        while action not in avaliable_actions:
+            if action is not None:
+                print('Такого действия нет')
 
-    if action == 'добавить':
+            print('введите действие:\n\n',
+            'просмотреть\n',
+            'добавить\n',
+            'найти\n',
+            'редактировать\n',
+            'удалить\n')
 
-        add_action = True
+            action = str(input())
 
-        while add_action is True:
+        if action == 'добавить':
 
-            print('\n\nвведите данные:\n')
+            add_action = True
 
-            print('Имя:')
-            first_name = input()
-            print('\n')
+            while add_action is True:
+                print('\n\nвведите данные:\n')
 
-            print('Фамилия:')
-            last_name = input()
-            print('\n')
+                print('Имя:')
+                first_name = input()
+                print('\n')
 
-            print('Отчество:\n')
-            patronymic = input()
-            print('\n')
+                print('Фамилия:')
+                last_name = input()
+                print('\n')
 
-            print('Организация:\n')
-            organisation = input()
-            print('\n')
+                print('Отчество:\n')
+                patronymic = input()
+                print('\n')
 
-            print('Рабочий телефон:\n')
-            work_number = input()
-            print('\n')
+                print('Организация:\n')
+                organisation = input()
+                print('\n')
 
-            print('Личный телефон:\n')
-            personal_number = input()
-            print('\n')
+                print('Рабочий телефон:\n')
+                work_number = input()
+                print('\n')
 
-            crud.add_data(first_name, last_name, patronymic, organisation, work_number, personal_number)
-            print('Данные добавлены успешно\n\n')
-            
-            answer = None
+                print('Личный телефон:\n')
+                personal_number = input()
+                print('\n')
 
-            while answer not in ['да', 'нет']:
-            
-                if answer is not None:
-                    print("Такого действия нет\n")
+                crud.add_data(first_name, last_name, patronymic, organisation, work_number, personal_number)
+                print('\nДанные добавлены успешно\n')
+                
+                answer = None
 
-                print('Добавить еще запись? (да/нет)\n\n')                    
-                answer = input()
+                while answer not in ['да', 'нет']:
+                
+                    if answer is not None:
+                        print("\nТакого действия нет\n")
 
-            if answer == 'нет':
-                add_action = False
+                    print('\nДобавить еще запись? (да/нет)\n')                    
+                    answer = input()
 
-    elif action == 'просмотреть':
+                if answer == 'нет':
+                    add_action = False
 
-        get_action = True
+        elif action == 'просмотреть':
 
-        while get_action is True:
-            print('Введите номер страницы\n\n')
+            get_action = True
 
-            page_number = int(input())
-            data = get_paginated_data(page_number)
+            while get_action is True:
+                print('\nВведите номер страницы\n')
 
-            if data is None:
-                print("Страницы с данным номером не существует\n\n")
-            else:
-                print(data, '\n\n')
+                page_number = int(input())
+                data = crud.get_paginated_data(page_number)
 
-
-            answer = None
-
-            while answer not in ['да', 'нет']:
-            
-                if answer is not None:
-                    print("Такого действия нет\n")
-
-                print("Хотите просмотреть еще какую-нибудь страницу? (да/нет)\n\n")                    
-                answer = input()
-
-            if answer == 'нет':
-                get_action = False
-
-            
+                if data is None:
+                    print("\nСтраницы с данным номером не существует\n")
+                else:
+                    print(data, '\n\n')
 
 
+                answer = None
+
+                while answer not in ['да', 'нет']:
+                
+                    if answer is not None:
+                        print("\nТакого действия нет\n")
+
+                    print("\nХотите просмотреть еще какую-нибудь страницу? (да/нет)\n")                    
+                    answer = input()
+
+                if answer == 'нет':
+                    get_action = False
+
+                
+        elif action == 'редактировать':
+
+            update_action = True
+
+            while update_action is True:
+                print('\nВведите номер телефона, чтобы отредактировать запись\n')
+
+                former_number = input()
+
+                number_validation = crud.check_number(former_number) 
+
+                if number_validation is False:
+                    print("\nЗаписи по данному номеру не существует\n")
+                else:                          
+                    print('\n\nВведите данные для изменения (нажмите Enter, чтобы пропустить редактирование любого поля):\n')
+
+                    print('Имя:')
+                    first_name = input()
+                    print('\n')
+
+                    print('Фамилия:')
+                    last_name = input()
+                    print('\n')
+
+                    print('Отчество:\n')
+                    patronymic = input()
+                    print('\n')
+
+                    print('Организация:\n')
+                    organisation = input()
+                    print('\n')
+
+                    print('Рабочий телефон:\n')
+                    work_number = input()
+                    print('\n')
+
+                    print('Личный телефон:\n')
+                    personal_number = input()
+                    print('\n')
+
+                    crud.update_data(first_name, last_name, patronymic, organisation, work_number, personal_number, former_number)
+                    print('\nДанные добавлены успешно\n')
+
+
+                    answer = None
+
+                    while answer not in ['да', 'нет']:
+                    
+                        if answer is not None:
+                            print("\nТакого действия нет\n")
+
+                        print("\nХотите отредактировать еще запись? (да/нет)\n")                    
+                        answer = input()
+
+                    if answer == 'нет':
+                        update_action = False
+
+        elif action == 'найти':
+
+            search_action = True
+
+            while search_action is True:
+                print('\nВведите имя и фамилию для поиска по справочнику\n')
+
+                print('Имя:')
+                first_name = input()
+                print('\n')
+
+                print('Фамилия:')
+                last_name = input()
+                print('\n')
+
+                query = crud.search_data(first_name, last_name) 
+
+                if query is None:
+                    print("\nВ справочнике отсутствует кто-либо с таким именем и фамилией\n")
+                else:
+                    print(query)
+
+                
+                answer = None
+
+                while answer not in ['да', 'нет']:
+                
+                    if answer is not None:
+                        print("\nТакого действия нет\n")
+
+                    print("\nХотите произвести поиск повторно? (да/нет)\n")                    
+                    answer = input()
+
+                if answer == 'нет':
+                    search_action = False
 
 
 
+# end of main section
 
+        answer = None
 
+        while answer not in ['да', 'нет']:
+        
+            if answer is not None:
+                print("\nТакого действия нет\n")
 
+            print("\nХотите выполнить еще действие? (да/нет)\n")                    
+            answer = input()
+
+        if answer == 'нет':
+            main_action = False
 
 
     running = False
 
-print('конец')
+print('\nСпасибо, что воспользовались нашей программой. До свидания!')
 
 
 

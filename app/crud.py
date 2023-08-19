@@ -1,4 +1,5 @@
 import pandas as pd
+from os import getcwd
 
 model = {'first_name': [], 
          'last_name': [], 
@@ -6,6 +7,7 @@ model = {'first_name': [],
          'organisation':[],
          'work_number': [],
          'personal_number':[]}
+
 
 def create_db(model):
     """Writes python 'model' datastructure to txt file that's created or located at the same path"""
@@ -48,13 +50,11 @@ def paginate_dataframe(dataframe, page_size, page_number):
 
     if num_rows % page_size == 0:
         num_pages = num_rows / page_size
-
     else:
         num_pages = num_rows // page_size + 1
 
     if page_number > num_pages or page_number <= 0:
-        return None
-    
+        return None   
     else:
         offset = page_size*(page_number-1)
 
@@ -70,6 +70,65 @@ def get_paginated_data(page_number):
 
       
     return query
+
+def check_number(personal_number):
+    """Returns boolean value whether or not value exists in db column 'personal_number'"""
+    data = connect_db()
+    data = pd.DataFrame(data)
+    result = personal_number in set(data['personal_number'])
+
+    return result
+
+
+def update_data(first_name, last_name, patronymic, organisation, work_number, personal_number, former_number):
+    """Updates database by 'personal_number' field if string of an istance is not empty"""
+    data = connect_db()
+    data = pd.DataFrame(data)
+
+    filt = (data['personal_number'] == former_number)
+
+    if first_name != "":   
+        data.loc[filt, 'first_name'] = first_name
+    if last_name != "":        
+        data.loc[filt, 'last_name'] = last_name
+    if patronymic != "":
+        data.loc[filt, 'patronymic'] = patronymic
+    if organisation != "":
+        data.loc[filt, 'organisation'] = organisation
+    if work_number != "":
+        data.loc[filt, 'work_number'] = work_number
+    if personal_number != "":
+        data.loc[filt, 'personal_number'] = personal_number
+
+    data = data.to_dict(orient='list')
+    save_db(data)
+
+    return data
+
+def search_data(first_name, last_name):
+    """Searches a row from database by 'first_name' and 'last_name' columns"""
+    data = connect_db()
+    data = pd.DataFrame(data)
+
+    data = data.query(f"first_name == '{first_name}' and last_name == '{last_name}'")
+
+    if len(data) == 0:
+        return None    
+    else:
+        return data
+
+
+# aaa = search_data("Илья1", "Томин1")
+
+# print(aaa)
+
+# aaa = update_data('Илья', '', '', 'Google', '', '89534086776', '89534086776')
+
+# print(aaa)
+
+# print(check_number('89534086776'))
+
+
 
 
 # data = get_paginated_data(4)
