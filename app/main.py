@@ -16,12 +16,8 @@ while running is True:
             if action is not None:
                 print('Такого действия нет')
 
-            print('введите действие:\n\n',
-            'просмотреть\n',
-            'добавить\n',
-            'найти\n',
-            'редактировать\n',
-            'удалить\n')
+            print('введите действие:\n\n', 'просмотреть\n', 'добавить\n',
+                  'найти\n', 'редактировать\n')
 
             action = str(input())
 
@@ -44,17 +40,14 @@ while running is True:
                     last_name = input()
                     validation = crud.validate_string(last_name)
                     
-                validation = False
-                while validation is False:
-                    print('\nОтчество (обязательно):\n')
-                    patronymic = input()
-                    validation = crud.validate_string(patronymic)
 
-                validation = False
-                while validation is False:
-                    print('\nОрганизация (обязательно):\n')
-                    organisation = input()
-                    validation = crud.validate_string(organisation)                    
+                print('\nОтчество (опционально):\n')
+                patronymic = input()
+
+
+                print('\nОрганизация (опционально):\n')
+                organisation = input()
+                  
 
                 validation = False
                 while validation is False:
@@ -177,9 +170,8 @@ while running is True:
 
                 print('Имя:')
                 first_name = input()
-                print('\n')
 
-                print('Фамилия:')
+                print('\nФамилия:')
                 last_name = input()
                 print('\n')
 
