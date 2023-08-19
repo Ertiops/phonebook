@@ -45,7 +45,6 @@ def paginate_dataframe(dataframe, page_size, page_number):
     """Provides pagination of pandas dataframe. Returns frame if page exists or None otherwise"""
 
     page_size = page_size
-
     num_rows = len(dataframe)
 
     if num_rows % page_size == 0:
@@ -57,8 +56,8 @@ def paginate_dataframe(dataframe, page_size, page_number):
         return None   
     else:
         offset = page_size*(page_number-1)
-
-        return dataframe[offset:offset + page_size]
+        result = dataframe[offset:offset + page_size]
+        return result
 
 
 def get_paginated_data(page_number):
@@ -118,27 +117,19 @@ def search_data(first_name, last_name):
         return data
 
 
-# aaa = search_data("Илья1", "Томин1")
+def validate_phone(phone_number):
+    """Checks if input is a digit and returns boolean value"""
+    if len(phone_number) == 11 and phone_number.isdigit() is True:
+        return True   
+    else:
+        return False
 
-# print(aaa)
-
-# aaa = update_data('Илья', '', '', 'Google', '', '89534086776', '89534086776')
-
-# print(aaa)
-
-# print(check_number('89534086776'))
-
-
-
-
-# data = get_paginated_data(4)
-
-# print(data)
-
-# add_data('Илья', 'Томин', 'Сергеевич', 'КФУ', 89534086776, 89534086776)
-
-# create_db()
+def validate_string(string):
+    """Checks if the string is empty or contains spaces"""
+    if string == "" or " " in string:
+        return False
+    else:
+        return True
 
 
-
-
+print(validate_string("ss"))

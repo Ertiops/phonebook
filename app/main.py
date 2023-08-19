@@ -2,7 +2,6 @@ import crud
 
 avaliable_actions = ['просмотреть','добавить', 'найти', 'редактировать']
 
-
 running = True
 
 while running is True:
@@ -31,28 +30,44 @@ while running is True:
             add_action = True
 
             while add_action is True:
-                print('\n\nвведите данные:\n')
+                print('\n\nВведите данные:\n')
 
-                print('Имя:')
-                first_name = input()
+                validation = False
+                while validation is False:
+                    print('Имя (обязательно):')
+                    first_name = input()
+                    validation = crud.validate_string(first_name)
 
-                print('\nФамилия:')
-                last_name = input()
+                validation = False
+                while validation is False:
+                    print('\nФамилия (обязательно):')
+                    last_name = input()
+                    validation = crud.validate_string(last_name)
+                    
+                validation = False
+                while validation is False:
+                    print('\nОтчество (обязательно):\n')
+                    patronymic = input()
+                    validation = crud.validate_string(patronymic)
 
-                print('\nОтчество:\n')
-                patronymic = input()
+                validation = False
+                while validation is False:
+                    print('\nОрганизация (обязательно):\n')
+                    organisation = input()
+                    validation = crud.validate_string(organisation)                    
 
+                validation = False
+                while validation is False:
+                    print('\nРабочий телефон (11 цифр):\n')
+                    work_number = input()
+                    validation = crud.validate_phone(work_number)
 
-                print('\nОрганизация:\n')
-                organisation = input()
+                validation = False
+                while validation is False:                
+                    print('\nЛичный телефон (11 цифр):\n')
+                    personal_number = input()
+                    validation = crud.validate_phone(personal_number)
 
-
-                print('\nРабочий телефон:\n')
-                work_number = input()
-
-
-                print('\nЛичный телефон:\n')
-                personal_number = input()
 
 
                 crud.add_data(first_name, last_name, patronymic, organisation, work_number, personal_number)
