@@ -1,17 +1,19 @@
 import crud
 
+# list of valid actions 
 avaliable_actions = ['просмотреть','добавить', 'найти', 'редактировать']
 
+# stores boolean to keep app running if True
 running = True
-
+# main loop that kepps app running
 while running is True:
-
+    # stores boolean to keep main functional running while app is on
     main_action = True
-
+    # loops through main actions while user wants to use functionality
     while main_action is True:
-
+        # stores main action value - None to provide while loop till action is not chosen
         action = None
-
+        # loop till  main action is not chosen
         while action not in avaliable_actions:
             if action is not None:
                 print('Такого действия нет')
@@ -22,12 +24,12 @@ while running is True:
             action = str(input())
 
         if action == 'добавить':
-
+            # stores subaction boolean to process while loop
             add_action = True
 
             while add_action is True:
                 print('\n\nВведите данные:\n')
-
+                # stores validation bbolean to process while validation loop
                 validation = False
                 while validation is False:
                     print('Имя (обязательно):')
@@ -65,7 +67,7 @@ while running is True:
 
                 crud.add_data(first_name, last_name, patronymic, organisation, work_number, personal_number)
                 print('\nДанные добавлены успешно\n')
-                
+                # stores answer value to process answer validatiom                
                 answer = None
 
                 while answer not in ['да', 'нет']:
@@ -80,13 +82,14 @@ while running is True:
                     add_action = False
 
         elif action == 'просмотреть':
-
+            # stores subaction boolean to process while loop
             get_action = True
 
             while get_action is True:
                 print('\nВведите номер страницы\n')
 
                 page_number = int(input())
+               
                 data = crud.get_paginated_data(page_number)
 
                 if data is None:
@@ -110,12 +113,12 @@ while running is True:
 
                 
         elif action == 'редактировать':
-
+            # stores subaction boolean to process while loop
             update_action = True
 
             while update_action is True:
                 print('\nВведите номер телефона, чтобы отредактировать запись\n')
-
+                # stores imput number to process search in database
                 former_number = input()
 
                 number_validation = crud.check_number(former_number) 
@@ -125,27 +128,34 @@ while running is True:
                 else:                          
                     print('\n\nВведите данные для изменения (нажмите Enter, чтобы пропустить редактирование любого поля):\n')
 
+
                     print('Имя:')
-                    first_name = input()
+                    first_name = crud.validate_updated_string(input())
 
                     print('\nФамилия:')
-                    last_name = input()
+                    last_name = crud.validate_updated_string(input())
 
                     print('\nОтчество:\n')
-                    patronymic = input()
+                    patronymic = crud.validate_updated_string(input())
 
                     print('\nОрганизация:\n')
-                    organisation = input()
+                    organisation = crud.validate_updated_string(input())
+                    
 
-                    print('\nРабочий телефон:\n')
-                    work_number = input()
+                    work_number = False
+                    while work_number is False:
+                        print('\nРабочий телефон (11 цифр):\n')
+                        work_number = crud.validate_phone_update(input())
 
-                    print('\nЛичный телефон:\n')
-                    personal_number = input()
+                    personal_number = False
+                    while personal_number is False:
+                        print('\nЛичный телефон (11 цифр):\n')
+                        personal_number = crud.validate_phone_update(input())
+
 
 
                     crud.update_data(first_name, last_name, patronymic, organisation, work_number, personal_number, former_number)
-                    print('\nДанные добавлены успешно\n')
+                    print('\nЗапись обновлена успешно\n')
 
 
                     answer = None
@@ -162,7 +172,7 @@ while running is True:
                         update_action = False
 
         elif action == 'найти':
-
+            # stores subaction boolean to process while loop
             search_action = True
 
             while search_action is True:
@@ -198,8 +208,6 @@ while running is True:
 
 
 
-# end of main section
-
         answer = None
 
         while answer not in ['да', 'нет']:
@@ -212,6 +220,7 @@ while running is True:
 
         if answer == 'нет':
             main_action = False
+
 
 
     running = False

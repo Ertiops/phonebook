@@ -131,5 +131,16 @@ def validate_string(string):
     else:
         return True
 
-
-print(validate_string("ss"))
+def validate_updated_string(string):
+    """checks if input is not empty and contains spaces to update in db (avoids updating with spaces)"""
+    if string != "" and " " not in string:
+        return string
+    else:
+        return ""
+     
+def validate_phone_update(phone_number):
+    """Checks if input is a digit or empty string"""
+    if len(phone_number) == 11 and phone_number.isdigit() is True or phone_number == "":
+        return phone_number   
+    else:
+        return False
