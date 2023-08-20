@@ -1,5 +1,11 @@
 import crud
 
+# reads description from txt file
+with open('description.txt', 'r', encoding="utf-8") as file:
+    description = "".join(file.readlines())
+
+print(description)
+
 # list of valid actions 
 avaliable_actions = ['просмотреть','добавить', 'найти', 'редактировать', 'выйти']
 
