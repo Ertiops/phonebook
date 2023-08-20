@@ -1,8 +1,7 @@
 import pandas as pd
-from os import getcwd
 
-model = {'first_name': [], 
-         'last_name': [], 
+model = {'last_name': [],
+         'first_name': [],          
          'patronymic':[],
          'organisation':[],
          'work_number': [],
@@ -144,3 +143,12 @@ def validate_phone_update(phone_number):
         return phone_number   
     else:
         return False
+    
+def validate_unique_phone(phone_number, column):
+    """Returns boolean whether personal_number in database"""
+    data = connect_db()
+    data = pd.DataFrame(data)
+
+    result = phone_number in data[column].unique()
+
+    return result
